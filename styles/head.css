@@ -2,3 +2,7 @@
   left: 30px;
   position: relative;
 }
+
+.social, ul.social a {
+	color: #FAFAFA;
+}
