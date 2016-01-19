@@ -11,8 +11,9 @@
 <script src="/scripts/postprocessing/ShaderPass.js"></script></head><body itemscope itemtype="https://schema.org/WebPage"><header itemscope itemtype="https://schema.org/WPHeader"><a id="logo" href="/"><img src="/images/char_logo.png" alt="Olmer" title="Olmer"></a><h1><a href="/" alt="Olmer" title="Olmer" itemprop="headline">Olmer</a></h1><p itemprop="description">Oleg Shlyazhko<br>WebGL, VR, ML, Bots</p><nav itemscope itemtype="https://schema.org/SiteNavigationElement"><ul><li itemprop="name"><a href="/" alt="Home" title="Home" itemprop="url">Home</a></li><li itemprop="name"><a href="/articles" alt="Articles" title="Articles" itemprop="url">Articles</a></li><li itemprop="name"><a href="/about" alt="About me" title="About me" itemprop="url">About me</a></li><li itemprop="name"><a href="/blackhole" alt="Black Hole" title="Black Hole" itemprop="url">Black Hole</a></li></ul><ul class="social"><li><a target="_blank" href="https://www.facebook.com/oleg.shlyazhko"><i class="socicon-facebook"></i>/oleg.shlyazhko</a></li><li><a target="_blank" href="https://www.linkedin.com/in/olegshlyazhko"><i class="socicon-linkedin"></i> /olegshlyazhko</a></li><li><a target="_blank" href="https://github.com/ollmer"><i class="socicon-github"></i></a> 
 <a target="_blank" href="https://twitter.com/ollmer"><i class="socicon-twitter"></i></a> 
 <a target="_blank" href="https://telegram.me/ollmer"><i class="socicon-telegram"></i></a> 
-<a target="_blank" href="mailto:oleg@olmer.me"><i class="socicon-mail"></i></a> </li></ul></nav><div class="space"></div></header><main itemscope itemtype="https://schema.org/Blog"><article class="full"><h1 itemprop="headline">Black Hole</h1><span class="post-meta">Last updated on<time itemprop="dateModified" datetime="2016-01-18T21:06:40.000Z"> Tuesday, January 19th 2016 at 2:10</time></span><p>My first experiment with WebGL &amp; Three.js. This tiny black star was born in my attempts to make nice animated logo that you can see at left side =).</p>
-<p></p><p id="view"></p><p></p>
+<a target="_blank" href="mailto:oleg@olmer.me"><i class="socicon-mail"></i></a> </li></ul></nav><div class="space"></div></header><main itemscope itemtype="https://schema.org/Blog"><article class="full"><h1 itemprop="headline">Black Hole</h1><span class="post-meta">Last updated on<time itemprop="dateModified" datetime="2016-01-18T21:06:40.000Z"> Tuesday, January 19th 2016 at 19:54</time></span><p>My first experiment with WebGL &amp; Three.js. This tiny black star was born in my attempts to make nice animated logo that you can see at left side =).</p>
+<p></p><p id="view" style="position:absolute;top:100px;left:250px;"></p><p></p>
+<script src="/scripts/tween.js"></script>
 <script type="text/javascript">
     var blackhole = 1;
     var scene, camera, renderer;
@@ -22,6 +23,8 @@
 
     var width = 400;
     var height = 400;
+    var width = window.innerWidth - 250;
+    var height = window.innerHeight - 140;
 
     var dt = 0
     var loop_sec = 20
@@ -37,8 +40,8 @@
 
         scene = new THREE.Scene();
 
-        camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 50 );
-        camera.position.z = 30;
+        camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 150 );
+        camera.position.z = 40;
 
         var ambientLight = new THREE.AmbientLight( 0x000000 );
         scene.add( ambientLight );
@@ -71,6 +74,16 @@
 
         mesh = new THREE.Mesh( geometry, material );
         scene.add( mesh );
+
+        var material = new THREE.SpriteMaterial( {
+            map: new THREE.CanvasTexture( generateSprite() ),
+            blending: THREE.AdditiveBlending
+        } );
+        for ( var i = 0; i < 10; i++ ) {
+            particle = new THREE.Sprite( material );
+            initParticle( particle, i * 10 );
+            scene.add( particle );
+        }
 
         renderer = new THREE.WebGLRenderer({ alpha: true });
         renderer.autoClear = false;
@@ -122,8 +135,55 @@
 
         // renderer.render( scene, camera );
         var delta = clock.getDelta();
+        TWEEN.update();
         renderer.clear();
         composer.render(delta);
+    }
+
+    function generateSprite() {
+        var canvas = document.createElement( 'canvas' );
+        canvas.width = 16;
+        canvas.height = 16;
+
+        var context = canvas.getContext( '2d' );
+        var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
+        gradient.addColorStop( 0, 'rgba(255,255,255,1)' );
+        gradient.addColorStop( 0.2, 'rgba(0,255,255,1)' );
+        gradient.addColorStop( 0.4, 'rgba(0,0,64,1)' );
+        gradient.addColorStop( 1, 'rgba(0,0,0,0)' );
+
+
+        context.fillStyle = gradient;
+        context.fillRect( 0, 0, canvas.width, canvas.height );
+
+        return canvas;
+    }
+
+    function initParticle( particle, delay ) {
+        var particle = this instanceof THREE.Sprite ? this : particle;
+        var delay = delay !== undefined ? delay : 0;
+
+        x = -400 + Math.random() * 200
+        y = Math.random() * 400 - 200; 
+        z = -10;
+        particle.position.set(x, y, z)
+        particle.scale.x = particle.scale.y = Math.random() * 2 + 10;
+
+        new TWEEN.Tween( particle )
+            .delay( delay )
+            .to( {}, 10000 )
+            .onComplete( initParticle )
+            .start();
+
+        new TWEEN.Tween( particle.position )
+            .delay( delay )
+            .to( { x: -x/20, y: -y/20 }, 10000 )
+            .start();
+
+        new TWEEN.Tween( particle.scale )
+            .delay( delay )
+            .to( { x: 0.01, y: 0.01 }, 10000 )
+            .start();
     }
 </script></article></main><script src="/scripts/index.js" type="text/javascript"></script><script>logo();</script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
 function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
