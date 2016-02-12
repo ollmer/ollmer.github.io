@@ -8,10 +8,10 @@
 <script src="/scripts/postprocessing/MaskPass.js"></script>
 <script src="/scripts/postprocessing/BloomPass.js"></script>
 <script src="/scripts/postprocessing/FilmPass.js"></script>
-<script src="/scripts/postprocessing/ShaderPass.js"></script></head><body itemscope itemtype="https://schema.org/WebPage"><header itemscope itemtype="https://schema.org/WPHeader"><a id="logo" href="/"><img src="/images/char_logo.png" alt="Olmer" title="Olmer"></a><h1><a href="/" alt="Olmer" title="Olmer" itemprop="headline">Olmer</a></h1><p itemprop="description">Oleg Shlyazhko<br>WebGL, VR, ML, Bots</p><nav itemscope itemtype="https://schema.org/SiteNavigationElement"><ul><li itemprop="name"><a href="/" alt="Home" title="Home" itemprop="url">Home</a></li><li itemprop="name"><a href="/articles" alt="Articles" title="Articles" itemprop="url">Articles</a></li><li itemprop="name"><a href="/about" alt="About me" title="About me" itemprop="url">About me</a></li><li itemprop="name"><a href="/blackhole" alt="Black Hole" title="Black Hole" itemprop="url">Black Hole</a></li></ul><ul class="social"><li><a target="_blank" href="https://www.facebook.com/oleg.shlyazhko"><i class="socicon-facebook"></i>/oleg.shlyazhko</a></li><li><a target="_blank" href="https://www.linkedin.com/in/olegshlyazhko"><i class="socicon-linkedin"></i> /olegshlyazhko</a></li><li><a target="_blank" href="https://github.com/ollmer"><i class="socicon-github"></i></a> 
+<script src="/scripts/postprocessing/ShaderPass.js"></script></head><body itemscope itemtype="https://schema.org/WebPage"><header itemscope itemtype="https://schema.org/WPHeader"><a id="logo" href="/"><img src="/images/char_logo.png" alt="Olmer" title="Olmer"></a><h1><a href="/" alt="Olmer" title="Olmer" itemprop="headline">Olmer</a></h1><p itemprop="description">Oleg Shlyazhko<br>Bots, ML, VR, WebGL</p><nav itemscope itemtype="https://schema.org/SiteNavigationElement"><ul><li itemprop="name"><a href="/" alt="Home" title="Home" itemprop="url">Home</a></li><li itemprop="name"><a href="/articles" alt="Articles" title="Articles" itemprop="url">Articles</a></li><li itemprop="name"><a href="/about" alt="About me" title="About me" itemprop="url">About me</a></li><li itemprop="name"><a href="/blackhole" alt="Black Hole" title="Black Hole" itemprop="url">Black Hole</a></li></ul><ul class="social"><li><a target="_blank" href="https://www.facebook.com/oleg.shlyazhko"><i class="socicon-facebook"></i>/oleg.shlyazhko</a></li><li><a target="_blank" href="https://www.linkedin.com/in/olegshlyazhko"><i class="socicon-linkedin"></i> /olegshlyazhko</a></li><li><a target="_blank" href="https://github.com/ollmer"><i class="socicon-github"></i></a> 
 <a target="_blank" href="https://twitter.com/ollmer"><i class="socicon-twitter"></i></a> 
 <a target="_blank" href="https://telegram.me/ollmer"><i class="socicon-telegram"></i></a> 
-<a target="_blank" href="mailto:oleg@olmer.me"><i class="socicon-mail"></i></a> </li></ul></nav><div class="space"></div></header><main itemscope itemtype="https://schema.org/Blog"><article class="full"><h1 itemprop="headline">Black Hole</h1><span class="post-meta">Last updated on<time itemprop="dateModified" datetime="2016-01-18T21:06:40.000Z"> Tuesday, January 19th 2016 at 20:02</time></span><p>My first experiment with WebGL &amp; Three.js. This tiny black star was born in my attempts to make nice animated logo that you can see at left side =).</p>
+<a target="_blank" href="mailto:oleg@olmer.me"><i class="socicon-mail"></i></a> </li></ul></nav><div class="space"></div></header><main itemscope itemtype="https://schema.org/Blog"><article class="full"><h1 itemprop="headline">Black Hole</h1><span class="post-meta">Last updated on<time itemprop="dateModified" datetime="2016-01-18T21:06:40.000Z"> Tuesday, January 19th 2016 at 20:08</time></span><p>My first experiment with WebGL &amp; Three.js. This tiny black star was born in my attempts to make nice animated logo that you can see at left side =).</p>
 <p></p><p id="view" style="position:absolute;top:100px;left:250px;"></p><p></p>
 <script src="/scripts/tween.js"></script>
 <script type="text/javascript">
@@ -142,8 +142,8 @@
 
     function generateSprite() {
         var canvas = document.createElement( 'canvas' );
-        canvas.width = 16;
-        canvas.height = 16;
+        canvas.width = 8;
+        canvas.height = 8;
 
         var context = canvas.getContext( '2d' );
         var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
@@ -163,11 +163,11 @@
         var particle = this instanceof THREE.Sprite ? this : particle;
         var delay = delay !== undefined ? delay : 0;
 
-        x = -400 + Math.random() * 200
+        x = -250 + Math.random() * 200
         y = Math.random() * 400 - 200; 
         z = -10;
         particle.position.set(x, y, z)
-        particle.scale.x = particle.scale.y = Math.random() * 2 + 10;
+        particle.scale.x = particle.scale.y = Math.random() * 2 + 5;
 
         new TWEEN.Tween( particle )
             .delay( delay )

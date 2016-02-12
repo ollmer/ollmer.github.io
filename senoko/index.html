@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="en-us"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>С днем святого Валентина, Надюша! | Olmer</title><meta name="description"><meta name="generator" content="Olmer"><meta name="author" content="Oleg Shlyazhko"><meta name="keywords" content="olmer, oleg shlyahko, developer, backend, python, messengers, vr, machine learning, bots, ai"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=0"><link rel="stylesheet" type="text/css" href="/styles/screen.css"><link rel="stylesheet" type="text/css" href="/styles/head.css"><link rel="stylesheet" type="text/css" href="https://file.myfontastic.com/n6vo44Re5QaWo8oCKShBs7/icons.css"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"><link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192x192.png"><script src="/scripts/three.min.js"></script>
+<script src="/scripts/postprocessing/EffectComposer.js"></script>
+<script src="/scripts/shaders/CopyShader.js"></script>
+<script src="/scripts/shaders/FilmShader.js"></script>
+<script src="/scripts/shaders/ConvolutionShader.js"></script>
+<script src="/scripts/postprocessing/EffectComposer.js"></script>
+<script src="/scripts/postprocessing/RenderPass.js"></script>
+<script src="/scripts/postprocessing/MaskPass.js"></script>
+<script src="/scripts/postprocessing/BloomPass.js"></script>
+<script src="/scripts/postprocessing/FilmPass.js"></script>
+<script src="/scripts/postprocessing/ShaderPass.js"></script></head><body itemscope itemtype="https://schema.org/WebPage"><header itemscope itemtype="https://schema.org/WPHeader"><a id="logo" href="/"><img src="/images/char_logo.png" alt="Olmer" title="Olmer"></a><h1><a href="/" alt="Olmer" title="Olmer" itemprop="headline">Olmer</a></h1><p itemprop="description">Oleg Shlyazhko<br>Bots, ML, VR, WebGL</p><nav itemscope itemtype="https://schema.org/SiteNavigationElement"><ul><li itemprop="name"><a href="/" alt="Home" title="Home" itemprop="url">Home</a></li><li itemprop="name"><a href="/articles" alt="Articles" title="Articles" itemprop="url">Articles</a></li><li itemprop="name"><a href="/about" alt="About me" title="About me" itemprop="url">About me</a></li><li itemprop="name"><a href="/blackhole" alt="Black Hole" title="Black Hole" itemprop="url">Black Hole</a></li></ul><ul class="social"><li><a target="_blank" href="https://www.facebook.com/oleg.shlyazhko"><i class="socicon-facebook"></i>/oleg.shlyazhko</a></li><li><a target="_blank" href="https://www.linkedin.com/in/olegshlyazhko"><i class="socicon-linkedin"></i> /olegshlyazhko</a></li><li><a target="_blank" href="https://github.com/ollmer"><i class="socicon-github"></i></a> 
+<a target="_blank" href="https://twitter.com/ollmer"><i class="socicon-twitter"></i></a> 
+<a target="_blank" href="https://telegram.me/ollmer"><i class="socicon-telegram"></i></a> 
+<a target="_blank" href="mailto:oleg@olmer.me"><i class="socicon-mail"></i></a> </li></ul></nav><div class="space"></div></header><main itemscope itemtype="https://schema.org/Blog"><article class="full"><h1 itemprop="headline">С днем святого Валентина, Надюша!</h1><span class="post-meta">Last updated on<time itemprop="dateModified" datetime="2016-01-18T21:06:40.000Z"> Friday, February 12th 2016 at 14:46</time></span><p>Давно хотел сделать подарок своими руками. А раз так, то делать стоит то, что умею действительно хорошо. Это большое рыжее сердце для тебя, любимая =).</p>
+<p></p><p id="view"></p><p></p>
+<p><style type="text/css">a#logo {display: none !important;}</style></p>
+<script type="text/javascript">
+    var scene, camera, renderer;
+    var geometry, material, mesh;
+    var composer;
+    var clock;
+
+    var width = 400;
+    var height = 400;
+
+    var dt = 0
+    var loop_sec = 20
+    var fps = 30
+    var amplitude = 0.2;
+    var velocities = [];
+
+    init();
+
+    function init() {
+        clock = new THREE.Clock()
+
+        scene = new THREE.Scene();
+
+        camera = new THREE.PerspectiveCamera( 75, width / height, 0.01, 500 );
+        camera.position.z = 40;
+
+        var ambientLight = new THREE.AmbientLight( 0x000000 );
+        scene.add( ambientLight );
+        var lights = [];
+        brightness = 0.1
+        lights[0] = new THREE.SpotLight( 0xffffff, brightness, 0 );
+        lights[1] = new THREE.SpotLight( 0xffffff, brightness, 0 );
+        lights[0].position.set( 0, 0, 200 );
+        lights[1].position.set( 100, 200, 100 );
+        scene.add( lights[0] );
+        scene.add( lights[1] );
+
+        renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.autoClear = false;
+        renderer.setClearColor( 0x000000, 0 ); // the default
+        renderer.setSize( width, height );
+        node = document.getElementById('view');
+        if (node) {
+            node.appendChild( renderer.domElement );
+        }
+
+        var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBuffer: false };
+        var renderTarget = new THREE.WebGLRenderTarget( width, height, parameters );
+        composer = new THREE.EffectComposer(renderer, renderTarget);
+        var renderPass = new THREE.RenderPass(scene, camera);
+        composer.addPass(renderPass);
+
+
+        var effectCopy = new THREE.ShaderPass(THREE.CopyShader);
+        effectCopy.renderToScreen = true;
+        composer.addPass(effectCopy); 
+
+        var manager = new THREE.LoadingManager();
+        manager.onProgress = function ( item, loaded, total ) {
+            console.log( item, loaded, total );
+        };
+        var loader = new THREE.BufferGeometryLoader();
+        loader.load('geometry.json', 
+            function(bufferGeometry) {
+                var geometry = new THREE.Geometry().fromBufferGeometry( bufferGeometry );
+                for (var i = 0; i < geometry.vertices.length; i++) {
+                    geometry.vertices[i].x = geometry.vertices[i].x - 170
+                    geometry.vertices[i].y = geometry.vertices[i].y - 150
+                }
+
+                material = new THREE.MeshPhongMaterial({
+                    color: 0xf6993d,
+                    emissive: 0xf6993d,
+                    specular:0xffffff,
+                    shininess: 30,
+                    shading: THREE.FlatShading
+                });
+
+                mesh = new THREE.Mesh( geometry, material );
+                mesh.scale.x *= 0.25
+                mesh.scale.y *= 0.25
+                mesh.scale.z *= 0.25
+                mesh.frustumCulled = false;
+                scene.add( mesh );
+                animate();
+            },
+                // Function called when download progresses
+            function ( xhr ) {
+                console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+            },
+            // Function called when download errors
+            function ( xhr ) {
+                console.log( 'An error happened' );
+            }
+        );
+
+    }
+
+    var count = 0
+    function animate() {
+        requestAnimationFrame( animate );
+        // mesh.rotation.x += 0.005;
+        mesh.rotation.y += 0.005;
+
+        if ((count >= 40) && (count < 50)) {
+            delta = 0.5 - (count - 40)/50
+            mesh.scale.x += 0.01*delta
+            mesh.scale.y += 0.01*delta
+            mesh.scale.z += 0.01*delta
+        } 
+        if ((count >= 50) && (count < 60)) {
+            delta = 0.5 - (count - 50)/50
+            mesh.scale.x -= 0.01*delta
+            mesh.scale.y -= 0.01*delta
+            mesh.scale.z -= 0.01*delta
+        } 
+        count += 1
+        if (count >= 100){ count = 0}
+
+        composer.render();
+    }
+
+</script></article></main><script src="/scripts/index.js" type="text/javascript"></script><script>logo();</script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+e.src='//www.google-analytics.com/analytics.js';
+r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+ga('create','UA-51338010-2');ga('send','pageview');</script></body></html>
