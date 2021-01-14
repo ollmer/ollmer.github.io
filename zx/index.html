@@ -49,7 +49,7 @@ window.emulatorComponent = new function() {
         };
     };
     const emulatorReadyHandler = function() {
-        Module.setCanvasSize(1024, 768);
+        Module.setCanvasSize(800, 600);
         Module.ccall('OpenFile', null, ['string'], [url]);
         Module.ccall('OnCommand', null, ['string'], ['joystick=cursor']);
     };
@@ -74,7 +74,7 @@ window.emulatorComponent = new function() {
     ;
 };
 </script>
-<h1>ZX Spectrum</h1>
+<h1>ZX Spectrum USP</h1>
 <div class="emulator">
 	<canvas class="emulator_canvas" width="1024" height="768" tabindex="0"></canvas>
 	<div><button class="button" onclick="window.emulatorComponent.start('illusion.scl')">Start</button></div>
