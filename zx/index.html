@@ -50,7 +50,7 @@ window.emulatorComponent = new function() {
         };
     };
     const emulatorReadyHandler = function() {
-        Module.setCanvasSize(960, 720);
+        Module.setCanvasSize(768, 576);
         Module.ccall('OpenFile', null, ['string'], [url]);
         Module.ccall('OnCommand', null, ['string'], ['joystick=cursor']);
     };
@@ -83,10 +83,10 @@ window.emulatorComponent = new function() {
 <main itemscope itemtype="https://schema.org/Blog"><article class="full">
 test main 4
 <div class="emulator">
-	<canvas class="emulator_canvas" width="960" height="720" tabindex="0"></canvas>
+	<canvas class="emulator_canvas" width="768" height="576" tabindex="0"></canvas>
 	<div class="emulator_controls"><button class="button emulator_fullscreen">Развернуть на полный экран</button></div>
 </div>
-<div><button class="button" onclick="window.emulatorComponent.start('red_raid__the_sinking.zip')">Start</button></div>
+<div><button class="button" onclick="window.emulatorComponent.start('roms/illusion.tap.zip')">Start</button></div>
 </main>
 <script>
 window.emulatorComponent.initialize();
