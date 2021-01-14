@@ -57,6 +57,7 @@ window.emulatorComponent = new function() {
     const fullscreenClick = function() {
         Module.requestFullscreen(false, true);
     };
+    self.initialize = function() { init(); };
     self.start = function(newUrl) {
         if (canvasElement) {
             url = newUrl;
@@ -88,6 +89,6 @@ test main 3
 <div><button class="button" onclick="window.emulatorComponent.start('red_raid__the_sinking.zip')">Start</button></div>
 </main>
 <script>
-window.emulatorComponent.init();
+window.emulatorComponent.initialize();
 </script>
 </body></html>
