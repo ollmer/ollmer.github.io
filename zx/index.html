@@ -81,12 +81,12 @@ window.emulatorComponent = new function() {
 <a target="_blank" href="mailto:oleg@olmer.me"><i class="socicon-mail"></i></a> </li></ul></nav><div class="space"></div></header>
 
 <main itemscope itemtype="https://schema.org/Blog"><article class="full">
-test main 4
+<h2>ZX Spectrum</h2>
 <div class="emulator">
 	<canvas class="emulator_canvas" width="768" height="576" tabindex="0"></canvas>
-	<div class="emulator_controls"><button class="button emulator_fullscreen">Развернуть на полный экран</button></div>
+	<div><button class="button" onclick="window.emulatorComponent.start('roms/Illusion.tap.zip')">Start</button></div>
+	<div class="emulator_controls"><button class="button emulator_fullscreen">Fullscreen</button></div>
 </div>
-<div><button class="button" onclick="window.emulatorComponent.start('roms/illusion.tap.zip')">Start</button></div>
 </main>
 <script>
 window.emulatorComponent.initialize();
