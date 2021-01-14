@@ -18,18 +18,6 @@
 
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">
-
-<header itemscope itemtype="https://schema.org/WPHeader"><a id="logo" href="/"><img src="/images/char_logo.png" alt="Olmer" title="Olmer"></a><h1><a href="/" alt="Olmer" title="Olmer" itemprop="headline">Olmer</a></h1><p itemprop="description">Oleg Shlyazhko<br>Bots, ML, VR, WebGL</p><nav itemscope itemtype="https://schema.org/SiteNavigationElement"><ul><li itemprop="name"><a href="/" alt="Home" title="Home" itemprop="url">Home</a></li><li itemprop="name"><a href="/articles" alt="Articles" title="Articles" itemprop="url">Articles</a></li><li itemprop="name"><a href="/about" alt="About me" title="About me" itemprop="url">About me</a></li><li itemprop="name"><a href="/blackhole" alt="Black Hole" title="Black Hole" itemprop="url">Black Hole</a></li></ul><ul class="social"><li><a target="_blank" href="https://www.facebook.com/oleg.shlyazhko"><i class="socicon-facebook"></i>/oleg.shlyazhko</a></li><li><a target="_blank" href="https://www.linkedin.com/in/olegshlyazhko"><i class="socicon-linkedin"></i> /olegshlyazhko</a></li><li><a target="_blank" href="https://github.com/ollmer"><i class="socicon-github"></i></a> 
-<a target="_blank" href="https://twitter.com/ollmer"><i class="socicon-twitter"></i></a> 
-<a target="_blank" href="https://telegram.me/ollmer"><i class="socicon-telegram"></i></a> 
-<a target="_blank" href="mailto:oleg@olmer.me"><i class="socicon-mail"></i></a> </li></ul></nav><div class="space"></div></header>
-
-<main itemscope itemtype="https://schema.org/Blog"><article class="full">
-test main 2
-<div class="emulator">
-	<canvas class="emulator_canvas" width="960" height="720" tabindex="0"></canvas>
-	<div class="emulator_controls"><button class="button emulator_fullscreen">Развернуть на полный экран</button></div>
-</div>
 <script>
 window.emulatorComponent = new function() {
     const self = this;
@@ -86,8 +74,21 @@ window.emulatorComponent = new function() {
     }
     ;
 };
+</script>
+<header itemscope itemtype="https://schema.org/WPHeader"><a id="logo" href="/"><img src="/images/char_logo.png" alt="Olmer" title="Olmer"></a><h1><a href="/" alt="Olmer" title="Olmer" itemprop="headline">Olmer</a></h1><p itemprop="description">Oleg Shlyazhko<br>Bots, ML, VR, WebGL</p><nav itemscope itemtype="https://schema.org/SiteNavigationElement"><ul><li itemprop="name"><a href="/" alt="Home" title="Home" itemprop="url">Home</a></li><li itemprop="name"><a href="/articles" alt="Articles" title="Articles" itemprop="url">Articles</a></li><li itemprop="name"><a href="/about" alt="About me" title="About me" itemprop="url">About me</a></li><li itemprop="name"><a href="/blackhole" alt="Black Hole" title="Black Hole" itemprop="url">Black Hole</a></li></ul><ul class="social"><li><a target="_blank" href="https://www.facebook.com/oleg.shlyazhko"><i class="socicon-facebook"></i>/oleg.shlyazhko</a></li><li><a target="_blank" href="https://www.linkedin.com/in/olegshlyazhko"><i class="socicon-linkedin"></i> /olegshlyazhko</a></li><li><a target="_blank" href="https://github.com/ollmer"><i class="socicon-github"></i></a> 
+<a target="_blank" href="https://twitter.com/ollmer"><i class="socicon-twitter"></i></a> 
+<a target="_blank" href="https://telegram.me/ollmer"><i class="socicon-telegram"></i></a> 
+<a target="_blank" href="mailto:oleg@olmer.me"><i class="socicon-mail"></i></a> </li></ul></nav><div class="space"></div></header>
+
+<main itemscope itemtype="https://schema.org/Blog"><article class="full">
+test main 3
+<div class="emulator">
+	<canvas class="emulator_canvas" width="960" height="720" tabindex="0"></canvas>
+	<div class="emulator_controls"><button class="button emulator_fullscreen">Развернуть на полный экран</button></div>
+</div>
+<div><button class="button" onclick="window.emulatorComponent.start('red_raid__the_sinking.zip')">Start</button></div>
+</main>
+<script>
 window.emulatorComponent.init();
 </script>
-<button class="button" onclick="window.emulatorComponent.start('red_raid__the_sinking.zip')">Start</button>
-</main>
 </body></html>
