@@ -14,7 +14,6 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192x192.png">
-
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">
 <script>
@@ -50,7 +49,7 @@ window.emulatorComponent = new function() {
         };
     };
     const emulatorReadyHandler = function() {
-        Module.setCanvasSize(768, 576);
+        Module.setCanvasSize(1024, 768);
         Module.ccall('OpenFile', null, ['string'], [url]);
         Module.ccall('OnCommand', null, ['string'], ['joystick=cursor']);
     };
@@ -75,19 +74,12 @@ window.emulatorComponent = new function() {
     ;
 };
 </script>
-<header itemscope itemtype="https://schema.org/WPHeader"><a id="logo" href="/"><img src="/images/char_logo.png" alt="Olmer" title="Olmer"></a><h1><a href="/" alt="Olmer" title="Olmer" itemprop="headline">Olmer</a></h1><p itemprop="description">Oleg Shlyazhko<br>Bots, ML, VR, WebGL</p><nav itemscope itemtype="https://schema.org/SiteNavigationElement"><ul><li itemprop="name"><a href="/" alt="Home" title="Home" itemprop="url">Home</a></li><li itemprop="name"><a href="/articles" alt="Articles" title="Articles" itemprop="url">Articles</a></li><li itemprop="name"><a href="/about" alt="About me" title="About me" itemprop="url">About me</a></li><li itemprop="name"><a href="/blackhole" alt="Black Hole" title="Black Hole" itemprop="url">Black Hole</a></li></ul><ul class="social"><li><a target="_blank" href="https://www.facebook.com/oleg.shlyazhko"><i class="socicon-facebook"></i>/oleg.shlyazhko</a></li><li><a target="_blank" href="https://www.linkedin.com/in/olegshlyazhko"><i class="socicon-linkedin"></i> /olegshlyazhko</a></li><li><a target="_blank" href="https://github.com/ollmer"><i class="socicon-github"></i></a> 
-<a target="_blank" href="https://twitter.com/ollmer"><i class="socicon-twitter"></i></a> 
-<a target="_blank" href="https://telegram.me/ollmer"><i class="socicon-telegram"></i></a> 
-<a target="_blank" href="mailto:oleg@olmer.me"><i class="socicon-mail"></i></a> </li></ul></nav><div class="space"></div></header>
-
-<main itemscope itemtype="https://schema.org/Blog"><article class="full">
-<h2>ZX Spectrum</h2>
+<h1>ZX Spectrum</h1>
 <div class="emulator">
-	<canvas class="emulator_canvas" width="768" height="576" tabindex="0"></canvas>
-	<div><button class="button" onclick="window.emulatorComponent.start('roms/Illusion.tap.zip')">Start</button></div>
+	<canvas class="emulator_canvas" width="1024" height="768" tabindex="0"></canvas>
+	<div><button class="button" onclick="window.emulatorComponent.start('illusion.scl')">Start</button></div>
 	<div class="emulator_controls"><button class="button emulator_fullscreen">Fullscreen</button></div>
 </div>
-</main>
 <script>
 window.emulatorComponent.initialize();
 </script>
